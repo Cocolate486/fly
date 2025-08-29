@@ -1,5 +1,6 @@
 ## 用vscode請按ctrl+shift+V預覽
 ### 同步readme.md
+測試
 在發送端輸入
 ```bash
 git add .
