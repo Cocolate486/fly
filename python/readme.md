@@ -1,5 +1,15 @@
 ## 用vscode請按ctrl+shift+V預覽
-
+### 同步readme.md
+在發送端輸入
+```bash
+git add .
+git commit -m "更新內容"
+git push
+```
+在接收端輸入
+```bash
+git pull
+```
 先在windows上安裝：
 
 [Qground_V_4.4.2](https://github.com/mavlink/qgroundcontrol/releases?page=1),
