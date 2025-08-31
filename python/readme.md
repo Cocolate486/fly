@@ -247,8 +247,9 @@ make px4_sitl_default gazebo
 開啟mavros
 ```bash
 ros1
-roslaunch uav1_pkg uav1.launch
 #如果在其他的文件夾中要先cd過去
+#cd /mnt/c/Users/andy2/Desktop/fly/fly/python
+roslaunch uav1_pkg uav1.launch
 ```
 開啟Qground，此時你應該會看到Q旁邊為ready to fly
 ```bash
@@ -257,6 +258,7 @@ roslaunch uav1_pkg uav1.launch
 執行py檔
 ```bash
 ros1
-python 你的檔案.py
 #如果在其他的文件夾中要先cd過去
+#cd /mnt/c/Users/andy2/Desktop/fly/fly/python
+python 你的檔案.py
 ```
