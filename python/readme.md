@@ -251,7 +251,62 @@ ros1
 #cd /mnt/c/Users/andy2/Desktop/fly/fly/python
 roslaunch uav1_pkg uav1.launch
 ```
-開啟Qground，此時你應該會看到Q旁邊為ready to fly
+模擬的話要更改或創個新的launch檔為：
+```xml
+<launch>
+  <group ns="uav1">
+    <node pkg="mavros" type="mavros_node" name="mavros_node_1" output="screen">
+      <param name="fcu_url" value="udp://:14540@" />
+      <param name="gcs_url" value="udp://@127.0.0.1:9527" />
+    </node>
+  </group>
+</launch>
+```
+開啟WSL中的Qground，並將我們設好的ip在設定連接上，此時你應該會看到Q旁邊為ready to fly
+```bash
+./QGroundControl.AppImage
+```
+執行py檔
+```bash
+ros1
+#如果在其他的文件夾中要先cd過去
+#cd /mnt/c/Users/andy2/Desktop/fly/fly/python
+python 你的檔案.py
+```
+
+# 無人機步驟：
+開啟[ros](#開機後啟動環境並測試)
+```bash
+ros1
+source ~/catkin_ws/devel/setup.bash
+roscore
+```
+插上數傳在WSL中做[數傳連接](#數控的連接)(可先在windows系統中測試)
+```bash
+usbipd list
+#列出usb port，確認無人機的序列號(名稱為USB Serial Converter的)，例：2-1 USB Serial Converter，就為2-1
+usbipd bind -b 2-1
+#綁定2-1連接的USB裝置，無輸出正常
+usbipd attach -b 2-1 -w Ubuntu-20.04
+#將綁定的2-1使用在Ubuntu-20.04中，要先關閉Qground的連接否則會報錯
+#無紅字為成功
+```
+開啟mavros
+```bash
+ros1
+#如果在其他的文件夾中要先cd過去
+#cd /mnt/c/Users/andy2/Desktop/fly/fly/python
+roslaunch uav1_pkg uav1.launch
+#應該要看到這兩個
+#[INFO] FCU: Connected to /dev/ttyUSB0
+#[INFO] Got HEARTBEAT from PX4
+rostopic echo /mavros/state
+#確認連線狀態
+rosservice call /mavros/set_mode "custom_mode: 'OFFBOARD'"
+rosservice call /mavros/cmd/arming "value: true"
+#切換模式 + 解鎖
+```
+開啟WSL中的Qground，並將我們設好的ip在設定連接上
 ```bash
 ./QGroundControl.AppImage
 ```
