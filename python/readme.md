@@ -212,6 +212,7 @@ ros1
 source ~/catkin_ws/devel/setup.bash
 #載入 ROS Noetic 的環境
 echo $ROS_DISTRO
+roscore
 #如果輸出是 noetic，代表你已經載入 ROS Noetic 的環境。
 #如果是空的或沒有輸出，表示你還沒執行 ros1 或 source /opt/ros/noetic/setup.bash。
 ```
@@ -226,3 +227,4 @@ gazebo --version
 gazebo
 #開啟gazebo
 ```
+2.模擬步驟：開啟ros
