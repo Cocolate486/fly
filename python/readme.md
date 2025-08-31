@@ -212,9 +212,9 @@ ros1
 source ~/catkin_ws/devel/setup.bash
 #載入 ROS Noetic 的環境
 echo $ROS_DISTRO
-roscore
 #如果輸出是 noetic，代表你已經載入 ROS Noetic 的環境。
 #如果是空的或沒有輸出，表示你還沒執行 ros1 或 source /opt/ros/noetic/setup.bash。
+roscore
 ```
 
 ## 安裝Gazebo模擬器
@@ -224,7 +224,38 @@ sudo apt install gazebo11 libgazebo11-dev
 #更新並安裝套件
 gazebo --version
 #確認是否安裝
-gazebo
-#開啟gazebo
+cd ~/PX4-Autopilot
+make px4_sitl_default gazebo
+#開啟gazebo PX4 SITL
 ```
-2.模擬步驟：開啟ros
+
+2.模擬步驟：
+開啟[ros](#開機後啟動環境並測試)
+```bash
+ros1
+source ~/catkin_ws/devel/setup.bash
+roscore
+```
+開啟gazebo
+```bash
+ros1
+cd ~/PX4-Autopilot
+#如果在其他的文件夾中要先cd過去
+make px4_sitl_default gazebo
+```
+開啟mavros
+```bash
+ros1
+roslaunch uav1_pkg uav1.launch
+#如果在其他的文件夾中要先cd過去
+```
+開啟Qground，此時你應該會看到Q旁邊為ready to fly
+```bash
+./QGroundControl.AppImage
+```
+執行py檔
+```bash
+ros1
+python 你的檔案.py
+#如果在其他的文件夾中要先cd過去
+``
