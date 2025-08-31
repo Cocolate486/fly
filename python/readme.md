@@ -10,6 +10,7 @@ git push
 在接收端輸入
 ```bash
 git pull
+#第一次要先git clone https://github.com/Cocolate486/fly.git
 ```
 
 ## 先在windows上安裝：
@@ -229,7 +230,7 @@ make px4_sitl_default gazebo
 #開啟gazebo PX4 SITL
 ```
 
-2.模擬步驟：
+# 模擬步驟：
 開啟[ros](#開機後啟動環境並測試)
 ```bash
 ros1
