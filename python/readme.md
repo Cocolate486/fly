@@ -11,9 +11,19 @@ git push
 ```bash
 git pull
 ```
-先在windows上安裝：
+
+## 先在windows上安裝：
 
 [Qground_V_4.4.2](https://github.com/mavlink/qgroundcontrol/releases?page=1),
+後面也需要在WSL中安裝Qground
+```bash
+wget https://github.com/mavlink/qgroundcontrol/releases/download/v4.4.2/QGroundControl.AppImage 
+#從網上下載連結的檔案
+chmod +x QGroundControl.AppImage
+#將檔案當成程式來執行
+./QGroundControl.AppImage
+#啟動Qground，後續啟動也是用這個
+```
 
 [WSL](https://learn.microsoft.com/zh-tw/windows/wsl/install),
 ```powershell
@@ -23,23 +33,12 @@ wsl --install -d Ubuntu-20.04
 ```
 
 [VScode](https://code.visualstudio.com/)
-
-再按照line上的第一個ppt來做[跳到基本準備與PX4環境安裝](#基本準備與px4環境安裝)
-
-
-安裝玩ROS系統後，要在WSL中下載vscode，，後續在WSL中開啟vscode也是用這個指令，
+安裝玩ROS系統後，要在WSL中下載vscode，後續在WSL中開啟vscode也是用這個指令，
 ```bash
 code .
 ```
-也需要在WSL中安裝Qground
-```bash
-wget https://github.com/mavlink/qgroundcontrol/releases/download/v4.4.2/QGroundControl.AppImage 
-#從網上下載連結的檔案
-chmod +x QGroundControl.AppImage
-#將檔案當成程式來執行
-./QGroundControl.AppImage
-#啟動Qground，後續啟動也是用這個
-```
+
+再按照line上的第一個ppt來做[跳到基本準備與PX4環境安裝](#基本準備與px4環境安裝)
 
 調試參考[PX4官網連結](https://docs.px4.io/main/en/config_mc/)，但基本上只需要先調試遙控和電池
 
@@ -93,8 +92,31 @@ usbipd attach -b 2-1 -w Ubuntu-20.04
 ```
 
 2.另開一個cmd並開啟Ubuntu
+```powershell
+wsl -d Ubuntu-20.04
+```
+
+3.開啟wsl中的Qground
 ```bash
-wsl --install -d Ubuntu-20.04
+./QGroundControl.AppImage
+```
+
+4.建議按照[簡報](https://postimg.cc/8jjbjHz5)去做
+
+## 馬達的調適
+
+1.先去安裝[usbip](https://github.com/dorssel/usbipd-win/releases?ref=geekbits)
+
+```bash
+usbipd
+#確認是否安裝成功，可列出所有可用指令
+usbipd list
+#列出usb port，確認無人機的序列號(名稱為USB Serial Converter的)，例：2-1 USB Serial Converter，就為2-1
+usbipd bind -b 2-1
+#綁定2-1連接的USB裝置，無輸出正常
+usbipd attach -b 2-1 -w Ubuntu-20.04
+#將綁定的2-1使用在Ubuntu-20.04中，要先關閉Qground的連接否則會報錯
+#無紅字為成功
 ```
 
 ## 基本準備與PX4環境安裝
@@ -192,4 +214,15 @@ source ~/catkin_ws/devel/setup.bash
 echo $ROS_DISTRO
 #如果輸出是 noetic，代表你已經載入 ROS Noetic 的環境。
 #如果是空的或沒有輸出，表示你還沒執行 ros1 或 source /opt/ros/noetic/setup.bash。
+```
+
+## 安裝Gazebo模擬器
+```bash
+sudo apt update
+sudo apt install gazebo11 libgazebo11-dev
+#更新並安裝套件
+gazebo --version
+#確認是否安裝
+gazebo
+#開啟gazebo
 ```
