@@ -1,0 +1,8 @@
+<launch>
+  <group ns="uav2">
+    <node pkg="mavros" type="mavros_node" name="mavros_node_1" output="screen">
+      <param name="fcu_url" value="udp://:14540@14557" />
+      <param name="gcs_url" value="udp://@127.0.0.1:9527" />
+    </node>
+  </group>
+</launch>

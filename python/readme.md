@@ -222,6 +222,14 @@ roscore
 ```bash
 sudo apt update
 sudo apt install gazebo11 libgazebo11-dev
+sudo apt install libgstreamer1.0-dev
+sudo apt install libgstreamer-plugins-base1.0-dev
+sudo apt install gstreamer1.0-plugins-good
+sudo apt install gstreamer1.0-plugins-bad
+sudo apt install gstreamer1.0-plugins-ugly
+sudo apt install libignition-math4-dev
+sudo apt install libignition-common3-dev
+sudo apt install libignition-msgs5-dev
 #更新並安裝套件
 gazebo --version
 #確認是否安裝
@@ -249,12 +257,15 @@ make px4_sitl_default gazebo
 ros1
 #如果在其他的文件夾中要先cd過去
 #cd /mnt/c/Users/andy2/Desktop/fly/fly/python
-roslaunch uav1_pkg uav1.launch
+#桌機
+#cd /mnt/c/Users/user/Desktop/vscode/python/python 
+#筆電
+roslaunch uav2.launch
 ```
 模擬的話要更改或創個新的launch檔為：
 ```xml
 <launch>
-  <group ns="uav1">
+  <group ns="uav2">
     <node pkg="mavros" type="mavros_node" name="mavros_node_1" output="screen">
       <param name="fcu_url" value="udp://:14540@" />
       <param name="gcs_url" value="udp://@127.0.0.1:9527" />
@@ -264,6 +275,7 @@ roslaunch uav1_pkg uav1.launch
 ```
 開啟WSL中的Qground，並將我們設好的ip在設定連接上，此時你應該會看到Q旁邊為ready to fly
 ```bash
+cd
 ./QGroundControl.AppImage
 ```
 執行py檔
@@ -271,7 +283,10 @@ roslaunch uav1_pkg uav1.launch
 ros1
 #如果在其他的文件夾中要先cd過去
 #cd /mnt/c/Users/andy2/Desktop/fly/fly/python
-python 你的檔案.py
+#桌機
+#cd /mnt/c/Users/user/Desktop/vscode/python/python 
+#筆電
+python3 你的檔案.py
 ```
 
 # 無人機步驟：
@@ -296,8 +311,8 @@ usbipd attach -b 2-1 -w Ubuntu-20.04
 ros1
 #如果在其他的文件夾中要先cd過去
 #cd /mnt/c/Users/andy2/Desktop/fly/fly/python
-roslaunch uav1_pkg uav1.launch
-#應該要看到這兩個
+roslaunch uav1.launch
+#應該要在其中看到這兩個
 #[INFO] FCU: Connected to /dev/ttyUSB0
 #[INFO] Got HEARTBEAT from PX4
 rostopic echo /mavros/state
@@ -308,6 +323,7 @@ rosservice call /mavros/cmd/arming "value: true"
 ```
 開啟WSL中的Qground，並將我們設好的ip在設定連接上
 ```bash
+cd
 ./QGroundControl.AppImage
 ```
 執行py檔
